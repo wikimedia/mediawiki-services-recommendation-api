@@ -1,7 +1,7 @@
 {
-  "name": "service-template-node",
-  "version": "0.5.1",
-  "description": "A blueprint for MediaWiki REST API services",
+  "name": "recommendation-api",
+  "version": "0.4.0",
+  "description": "Provides recommendations in Wikimedia projects",
   "main": "./app.js",
   "scripts": {
     "start": "service-runner",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/wikimedia/service-template-node.git"
+    "url": "git://github.com/schana/recommendation-api.git"
   },
   "keywords": [
     "REST",
@@ -21,13 +21,13 @@
     "service template",
     "MediaWiki"
   ],
-  "author": "Wikimedia Service Team <services@wikimedia.org>",
+  "author": "Nathaniel Schaaf <nschaaf@wikimedia.org>",
   "contributors": [],
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://phabricator.wikimedia.org/tag/service-template-node/"
+    "url": "https://phabricator.wikimedia.org/tag/recommendation-api/"
   },
-  "homepage": "https://github.com/wikimedia/service-template-node",
+  "homepage": "https://github.com/schana/recommendation-api",
   "dependencies": {
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.1",
