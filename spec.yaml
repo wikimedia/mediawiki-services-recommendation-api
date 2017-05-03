@@ -1,0 +1,112 @@
+swagger: '2.0'
+info:
+  termsOfService: https://wikimediafoundation.org/wiki/Terms_of_Use
+  contact:
+    name: the Wikimedia Research team
+    url: https://www.mediawiki.org/wiki/Wikimedia_Research
+  license:
+    name: Apache2
+    url: http://www.apache.org/licenses/LICENSE-2.0
+x-default-params:
+  domain: en.wikipedia.org
+paths:
+  # from routes/root.js
+  /robots.txt:
+    get:
+      tags:
+        - Root
+        - Robots
+      description: Gets robots.txt
+      x-amples:
+        - title: robots.txt check
+          request: {}
+          response:
+            status: 200
+            headers:
+              user-agent: '*'
+              disallow: '/'
+  /:
+    get:
+      tags:
+        - Root
+      description: The root service end-point
+      produces:
+        - application/json
+      x-amples:
+        - title: root with no query params
+          request: {}
+          response:
+            status: 404
+        - title: spec from root
+          request:
+            query:
+              spec: true
+          response:
+            status: 200
+        - title: doc from root
+          request:
+            query:
+              doc: true
+          response:
+            status: 200
+        - title: root with wrong query param
+          request:
+            query:
+              fooo: true
+          response:
+            status: 404
+  # from routes/translation.js
+  /translation/articles/{source}/{target}{/seed}:
+    get:
+      tags: ['Recommend']
+      summary: Recommend missing articles
+      description: |
+        Recommends articles to be translated from the source
+        to the target language.
+        Stability: [unstable](https://www.mediawiki.org/wiki/API_versioning#Unstable)
+      produces:
+        - applicaiton/json
+      parameters:
+        - name: source
+          in: path
+          description: The source language code
+          type: string
+          required: true
+        - name: target
+          in: path
+          description: The target language code
+          type: string
+          required: true
+        - name: seed
+          in: path
+          description: The article to use as a search seed
+          type: string
+          required: false
+      responses:
+        '200':
+          description: the list of articles recommended for translation
+          schema:
+            $ref: '#/definitions/rec_list_translation_articles'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/problem'
+definitions:
+  rec_list_translation_articles:
+    type: object
+    properties:
+      articles:
+        type: array
+        description: the list of articles recommended for translation
+        items:
+          type: object
+          properties:
+            title:
+              type: string
+              description: the title
+            wikidata_id:
+              type: string
+              description: the wikidata id
+            pageviews:
+              type: integer
+              description: the number of recent pageviews
