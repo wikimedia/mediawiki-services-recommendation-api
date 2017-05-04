@@ -2,6 +2,7 @@
 
 
 const sUtil = require('../lib/util');
+const tUtil = require('../lib/translation');
 
 
 /**
@@ -20,10 +21,10 @@ let app;
  * Gets the articles existing in source but missing in target.
  */
 router.get('/articles/:source/:target', (req, res) => {
-    res.json({
-        source: req.params.source,
-        target: req.params.target
-    });
+    tUtil.recommend(app, req.params.source, req.params.target)
+        .then((result) => {
+            res.json(result);
+        });
 });
 
 
@@ -32,11 +33,10 @@ router.get('/articles/:source/:target', (req, res) => {
  * Gets the articles existing in source but missing in target based on seed.
  */
 router.get('/articles/:source/:target/:seed', (req, res) => {
-    res.json({
-        source: req.params.source,
-        target: req.params.target,
-        seed: req.params.seed
-    });
+    tUtil.recommend(app, req.params.source, req.params.target, req.params.seed)
+        .then((result) => {
+            res.json(result);
+        });
 });
 
 

@@ -75,3 +75,11 @@ services:
         query: '{{ default(request.query, {}) }}'
         headers: '{{request.headers}}'
         body: '{{request.body}}'
+      queries:
+        most_popular:
+          domain: wikimedia.org
+          days: 2
+          path: /metrics/pageviews/top/{{source}}.wikipedia/all-access/{{year}}/{{month}}/{{day}}
+        wiki_search:
+        morelike:
+
