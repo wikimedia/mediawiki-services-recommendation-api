@@ -76,10 +76,23 @@ services:
         headers: '{{request.headers}}'
         body: '{{request.body}}'
       queries:
-        most_popular:
-          domain: wikimedia.org
-          days: 2
-          path: /metrics/pageviews/top/{{source}}.wikipedia/all-access/{{year}}/{{month}}/{{day}}
-        wiki_search:
-        morelike:
-
+        pageviews:
+          domain: '{{params.source}}.wikipedia.org'
+          parameters:
+            format: json
+            action: query
+            prop: pageprops
+            ppprop: wikibase_item
+            generator: mostviewed
+            gpvimlimit: 500
+        seed:
+          domain: '{{params.source}}.wikipedia.org'
+          parameters:
+            format: json
+            action: query
+            prop: pageprops
+            ppprop: wikibase_item
+            generator: search
+            gsrlimit: 500
+            gsrsearch: morelike:{{params.seed}}
+            gsrprop: ''

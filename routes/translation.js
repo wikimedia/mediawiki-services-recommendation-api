@@ -21,7 +21,7 @@ let app;
  * Gets the articles existing in source but missing in target.
  */
 router.get('/articles/:source/:target', (req, res) => {
-    tUtil.recommend(app, req.params.source, req.params.target)
+    return tUtil.recommend(app, req.params.source, req.params.target)
         .then((result) => {
             res.json(result);
         });
@@ -33,7 +33,7 @@ router.get('/articles/:source/:target', (req, res) => {
  * Gets the articles existing in source but missing in target based on seed.
  */
 router.get('/articles/:source/:target/:seed', (req, res) => {
-    tUtil.recommend(app, req.params.source, req.params.target, req.params.seed)
+    return tUtil.recommend(app, req.params.source, req.params.target, req.params.seed)
         .then((result) => {
             res.json(result);
         });

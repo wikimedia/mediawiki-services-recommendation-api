@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 var fs = BBPromise.promisifyAll(require('fs'));
 var sUtil = require('./lib/util');
 var apiUtil = require('./lib/api-util');
+var translation = require('./lib/translation');
 var packageInfo = require('./package.json');
 var yaml = require('js-yaml');
 
@@ -66,6 +67,8 @@ function initApp(options) {
 
     // set up the request templates for the APIs
     apiUtil.setupApiTemplates(app);
+
+    translation.setupTemplates(app);
 
     // set up the spec
     if(!app.conf.spec) {
