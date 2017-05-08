@@ -7,8 +7,6 @@ info:
   license:
     name: Apache2
     url: http://www.apache.org/licenses/LICENSE-2.0
-x-default-params:
-  domain: en.wikipedia.org
 paths:
   # from routes/root.js
   /robots.txt:
@@ -58,7 +56,8 @@ paths:
   # from routes/translation.js
   /translation/articles/{source}/{target}{/seed}:
     get:
-      tags: ['Recommend']
+      tags:
+        - Recommend
       summary: Recommend missing articles
       description: |
         Recommends articles to be translated from the source
@@ -82,31 +81,32 @@ paths:
           description: The article to use as a search seed
           type: string
           required: false
-      responses:
-        '200':
-          description: the list of articles recommended for translation
-          schema:
-            $ref: '#/definitions/rec_list_translation_articles'
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/problem'
-definitions:
-  rec_list_translation_articles:
-    type: object
-    properties:
-      articles:
-        type: array
-        description: the list of articles recommended for translation
-        items:
-          type: object
-          properties:
-            title:
-              type: string
-              description: the title
-            wikidata_id:
-              type: string
-              description: the wikidata id
-            pageviews:
-              type: integer
-              description: the number of recent pageviews
+      x-amples:
+        - title: normal source and target
+          request:
+            params:
+              source: en
+              target: de
+          response:
+            status: 200
+            headers:
+              content-type: application/json
+        - title: normal source and target with seed
+          request:
+            params:
+              source: en
+              target: de
+              seed: Apple
+          response:
+            status: 200
+            headers:
+              content-type: application/json
+        - title: bad source
+          request:
+            params:
+              source: qqq
+              target: de
+          response:
+            status: 500
+            headers:
+              content-type: application/json

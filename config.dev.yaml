@@ -96,3 +96,14 @@ services:
             gsrlimit: 500
             gsrsearch: morelike:{{params.seed}}
             gsrprop: ''
+        article:
+          domain: '{{params.source}}.wikipedia.org'
+          parameters:
+            format: json
+            action: query
+            prop: pageprops
+            ppprop: wikibase_item
+            generator: search
+            gsrlimit: 1
+            gsrsearch: '{{params.seed}}'
+            gsrprop: ''
