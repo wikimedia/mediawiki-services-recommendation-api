@@ -110,3 +110,13 @@ paths:
             status: 500
             headers:
               content-type: application/json
+        - title: bad seed
+          request:
+            params:
+              source: en
+              target: de
+              seed: thishsouldnotreturnanyresultsfromthesearchapi
+          response:
+            status: 404
+            headers:
+              content-type: application/json
