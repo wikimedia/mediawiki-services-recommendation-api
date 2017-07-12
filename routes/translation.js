@@ -42,20 +42,22 @@ function recommend(req, res, source, target, seed) {
 
 
 /**
- * GET /articles/{source}/{target}
- * Gets the articles existing in source but missing in target.
+ * GET /articles/{source}
+ * Gets the articles existing in source but missing in domain.
  */
-router.get('/articles/:source/:target', (req, res) => {
-    return recommend(req, res, req.params.source, req.params.target);
+router.get('/articles/:source', (req, res) => {
+    const target = req.params.domain.split('.', 0);
+    return recommend(req, res, req.params.source, target);
 });
 
 
 /**
- * GET /articles/{source}/{target}/{seed}
- * Gets the articles existing in source but missing in target based on seed.
+ * GET /articles/{source}/{seed}
+ * Gets the articles existing in source but missing in domain based on seed.
  */
-router.get('/articles/:source/:target/:seed', (req, res) => {
-    return recommend(req, res, req.params.source, req.params.target, req.params.seed);
+router.get('/articles/:source/:seed', (req, res) => {
+    const target = req.params.domain.split('.', 0);
+    return recommend(req, res, req.params.source, target, req.params.seed);
 });
 
 
@@ -65,7 +67,7 @@ module.exports = function(appObj) {
 
     return {
         path: '/translation',
-        skip_domain: true,
+        api_version: 1,
         router
     };
 

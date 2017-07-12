@@ -54,14 +54,14 @@ paths:
           response:
             status: 404
   # from routes/translation.js
-  /translation/articles/{source}/{target}{/seed}:
+  /{domain}/v1/translation/articles/{source}{/seed}:
     get:
       tags:
         - Recommend
       summary: Recommend missing articles
       description: |
         Recommends articles to be translated from the source
-        to the target language.
+        to the domain language.
         Stability: [unstable](https://www.mediawiki.org/wiki/API_versioning#Unstable)
       produces:
         - applicaiton/json
@@ -71,9 +71,9 @@ paths:
           description: The source language code
           type: string
           required: true
-        - name: target
+        - name: domain
           in: path
-          description: The target language code
+          description: The target domain
           type: string
           required: true
         - name: seed
@@ -92,7 +92,7 @@ paths:
           request:
             params:
               source: en
-              target: de
+              domain: de.wikipedia.org
           response:
             status: 200
             headers:
@@ -101,7 +101,7 @@ paths:
           request:
             params:
               source: en
-              target: de
+              domain: de.wikipedia.org
               seed: Apple
           response:
             status: 200
@@ -111,7 +111,7 @@ paths:
           request:
             params:
               source: qqq
-              target: de
+              domain: de.wikipedia.org
           response:
             status: 504
             headers:
@@ -120,7 +120,7 @@ paths:
           request:
             params:
               source: en
-              target: de
+              domain: de.wikipedia.org
               seed: thishsouldnotreturnanyresultsfromthesearchapi
           response:
             status: 404
@@ -130,7 +130,7 @@ paths:
           request:
             params:
               source: en
-              target: de
+              domain: de.wikipedia.org
             query:
               count: -123
           response:
