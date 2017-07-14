@@ -46,7 +46,7 @@ function recommend(req, res, source, target, seed) {
  * Gets the articles existing in source but missing in domain.
  */
 router.get('/articles/:source', (req, res) => {
-    const target = req.params.domain.split('.', 0);
+    const target = req.params.domain.split('.')[0];
     return recommend(req, res, req.params.source, target);
 });
 
@@ -56,7 +56,7 @@ router.get('/articles/:source', (req, res) => {
  * Gets the articles existing in source but missing in domain based on seed.
  */
 router.get('/articles/:source/:seed', (req, res) => {
-    const target = req.params.domain.split('.', 0);
+    const target = req.params.domain.split('.')[0];
     return recommend(req, res, req.params.source, target, req.params.seed);
 });
 
