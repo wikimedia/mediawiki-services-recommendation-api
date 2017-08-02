@@ -136,3 +136,10 @@ paths:
               count: -123
           response:
             status: 400
+        - title: incorrectly formatted source
+          request:
+            params:
+              source: en-
+              domain: de.wikipedia.org
+          response:
+            status: 400

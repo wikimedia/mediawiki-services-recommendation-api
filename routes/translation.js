@@ -15,8 +15,22 @@ const router = sUtil.router();
  */
 let app;
 
+/**
+ * Regular expression used for validating the source parameter
+ * @type {RegExp}
+ */
+const sourceValidator = /^[a-zA-Z]+(-[a-zA-Z]+)*$/;
 
 function recommend(req, res, source, target, seed) {
+    if (!sourceValidator.test(source)) {
+        throw new sUtil.HTTPError({
+            status: 400,
+            type: 'bad_request',
+            title: 'Bad request',
+            detail: 'source parameter was invalid'
+        });
+    }
+
     let count = 24;
     if (req.query && req.query.count) {
         count = parseInt(req.query.count, 10);
@@ -40,22 +54,11 @@ function recommend(req, res, source, target, seed) {
     });
 }
 
-
-/**
- * GET /articles/{source}
- * Gets the articles existing in source but missing in domain.
- */
-router.get('/articles/:source', (req, res) => {
-    const target = req.params.domain.split('.')[0];
-    return recommend(req, res, req.params.source, target);
-});
-
-
 /**
  * GET /articles/{source}/{seed}
  * Gets the articles existing in source but missing in domain based on seed.
  */
-router.get('/articles/:source/:seed', (req, res) => {
+router.get('/articles/:source/:seed?', (req, res) => {
     const target = req.params.domain.split('.')[0];
     return recommend(req, res, req.params.source, target, req.params.seed);
 });
