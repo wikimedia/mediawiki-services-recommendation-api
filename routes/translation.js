@@ -21,7 +21,7 @@ let app;
  */
 const sourceValidator = /^[a-zA-Z]+(-[a-zA-Z]+)*$/;
 
-function recommend(req, res, source, target, seed) {
+function recommend(req, res, source, target, projectDomain, seed) {
     if (!sourceValidator.test(source)) {
         throw new sUtil.HTTPError({
             status: 400,
@@ -44,12 +44,12 @@ function recommend(req, res, source, target, seed) {
         }
     }
 
-    return tUtil.recommend(app, source, target, seed)
+    return tUtil.recommend(app, source, target, projectDomain, seed)
     .then((result) => {
         result = result.slice(0, count);
         res.json({
             count: result.length,
-            articles: result
+            items: result
         });
     });
 }
@@ -59,8 +59,10 @@ function recommend(req, res, source, target, seed) {
  * Gets the articles existing in source but missing in domain based on seed.
  */
 router.get('/articles/:source/:seed?', (req, res) => {
-    const target = req.params.domain.split('.')[0];
-    return recommend(req, res, req.params.source, target, req.params.seed);
+    const domainParts = req.params.domain.split('.');
+    const target = domainParts[0];
+    const projectDomain = domainParts.splice(1).join('.');
+    return recommend(req, res, req.params.source, target, projectDomain, req.params.seed);
 });
 
 
