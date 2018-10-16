@@ -75,6 +75,11 @@ services:
         query: '{{ default(request.query, {}) }}'
         headers: '{{request.headers}}'
         body: '{{request.body}}'
+      mysql_conn:
+        host: localhost:3306
+        name: recommendationapi
+        user: root
+        pass:
       wdqsapi_req:
         method: 'post'
         uri: 'https://query.wikidata.org/sparql'
