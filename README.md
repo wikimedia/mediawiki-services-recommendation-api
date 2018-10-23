@@ -1,36 +1,14 @@
-# service-template-node [![Build Status](https://travis-ci.org/wikimedia/service-template-node.svg?branch=master)](https://travis-ci.org/wikimedia/service-template-node)
-
-Template for creating MediaWiki Services in Node.js
+# Recommendation API
 
 ## Getting Started
 
 ### Installation
-
-First, clone the repository
-
-```
-git clone https://github.com/wikimedia/service-template-node.git
-```
-
 Install the dependencies
-
 ```
-cd service-template-node
 npm install
 ```
 
-You are now ready to get to work!
-
-* Inspect/modify/configure `app.js`
-* Add routes by placing files in `routes/` (look at the files there for examples)
-
-You can also read [the documentation](https://www.mediawiki.org/wiki/ServiceTemplateNode).
-
-### Running the examples
-
-The template is a fully-working example, so you may try it right away. To
-start the server hosting the REST API, simply run (inside the repo's directory)
-
+### Running
 ```
 npm start
 ```
@@ -38,18 +16,7 @@ npm start
 This starts an HTTP server listening on `localhost:6927`. There are several
 routes you may query (with a browser, or `curl` and friends):
 
-* `http://localhost:6927/_info/`
-* `http://localhost:6927/_info/name`
-* `http://localhost:6927/_info/version`
-* `http://localhost:6927/_info/home`
-* `http://localhost:6927/{domain}/v1/siteinfo{/prop}`
-* `http://localhost:6927/{domain}/v1/page/{title}`
-* `http://localhost:6927/{domain}/v1/page/{title}/lead`
-* `http://localhost:6927/ex/err/array`
-* `http://localhost:6927/ex/err/file`
-* `http://localhost:6927/ex/err/manual/error`
-* `http://localhost:6927/ex/err/manual/deny`
-* `http://localhost:6927/ex/err/auth`
+* `http://localhost:6927/{domain}/v1/article/morelike/translation/{title}`
 
 ### Tests
 
@@ -78,6 +45,44 @@ In a lot of cases when there is an issue with node it helps to recreate the
 rm -r node_modules
 npm install
 ```
+
+## Data
+### SQL
+    SQL files are at scripts/. Once you have a database, you can use the
+    *.sql files to create the needed tables.
+
+### Languages
+    List of Wikipedia languages are at
+    https://github.com/wikimedia/research-translation-recommendation-models/blob/master/wikipedia.langlist
+
+    This list can be used to populate the `language` table. Use the
+    following command to do so:
+    `python article-recommendation-data-importer.py --load=languages --tsv=wikipedia.langlist`
+
+
+### Wikidata items
+    List of Wikidata items that link to Wikipedia entries on the Main
+    namespace is at
+    https://github.com/wikimedia/research-translation-recommendation-predictions/blob/master/02012018-07312018/wikidata_items.tsv.tar.gz
+
+    This lis can be used to populate the `wikidata` table. Use the
+    following command to do so:
+    `python article-recommendation-data-importer.py --load=wikidata_items --tsv=wikidata_items.tsv`
+
+
+### Article recommendation scores
+    Recommendation scores for article creation are at
+    https://github.com/wikimedia/research-translation-recommendation-predictions/tree/master/02012018-07312018
+
+    You'll need to remove 'Q' from wikidata ID's first (This way we
+    don't have to create a separate table for Wikidata items):
+
+    `sed 's/Q//' predictions-02012018-07312018_ruwiki-uzwiki.tsv > ruwiki-uzwiki.tsv`
+
+    Once languages and wikidata items are in the database, you can load
+    the scores into the article_recommendation table like so:
+
+    `python article-recommendation-data-importer.py --load=scores --source='ru' --target='uz' --tsv=ruwiki-uzwiki.tsv`
 
 Enjoy!
 
