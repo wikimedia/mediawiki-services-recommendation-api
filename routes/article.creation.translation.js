@@ -1,18 +1,9 @@
 'use strict';
 
-
-const sUtil = require('../lib/util');
+const util = require('../lib/util');
 const tUtil = require('../lib/article.creation.translation');
 
-
-/**
- * The main router object
- */
-const router = sUtil.router();
-
-/**
- * The main application object reported when this module is require()d
- */
+const router = util.router();
 let app;
 
 /**
@@ -23,7 +14,7 @@ const sourceValidator = /^[a-zA-Z]+(-[a-zA-Z]+)*$/;
 
 function recommend(req, res, source, target, projectDomain, seed) {
     if (!sourceValidator.test(source)) {
-        throw new sUtil.HTTPError({
+        throw new util.HTTPError({
             status: 400,
             type: 'bad_request',
             title: 'Bad request',
@@ -35,7 +26,7 @@ function recommend(req, res, source, target, projectDomain, seed) {
     if (req.query && req.query.count) {
         count = parseInt(req.query.count, 10);
         if (isNaN(count) || count < 1 || count > 500) {
-            throw new sUtil.HTTPError({
+            throw new util.HTTPError({
                 status: 400,
                 type: 'bad_request',
                 title: 'Bad request',
@@ -62,7 +53,8 @@ router.get('/:source/:seed?', (req, res) => {
     const domainParts = req.params.domain.split('.');
     const target = domainParts[0];
     const projectDomain = domainParts.splice(1).join('.');
-    return recommend(req, res, req.params.source, target, projectDomain, req.params.seed);
+    return recommend(req, res, req.params.source, target,
+                     projectDomain, req.params.seed);
 });
 
 

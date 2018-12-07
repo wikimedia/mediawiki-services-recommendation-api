@@ -4,16 +4,8 @@ const BBPromise = require("bluebird");
 const mysql = require('mysql');
 const util = require('../lib/util');
 const aUtil = require('../lib/article.creation.morelike');
-const sUtil = require('../lib/util');
 
-/**
- * The main router object
- */
 const router = util.router();
-
-/**
- * The main application object reported when this module is require()d
- */
 let app;
 
 /**
@@ -23,7 +15,6 @@ let app;
  * Similar articles are retrieved using a CirrusSearch morelike query.
  * Articles are prioritized using translation recommendations
  * predictions.
- * @see https://github.com/wikimedia/research-translation-recommendation-predictions
  */
 router.get('/:seed', (req, res) => {
     const domain = req.params.domain;
@@ -35,7 +26,7 @@ router.get('/:seed', (req, res) => {
           null;
 
     if (!sourceLanguages) {
-        app.logger.log('error/article',
+        app.logger.log('error/article.creation.morelike',
             `Article translation model for "${language}" doesn't exist.`);
         throw new util.HTTPError({
             status: 400
@@ -45,7 +36,7 @@ router.get('/:seed', (req, res) => {
     return aUtil.getWikidataId(app, domain, req.params.seed).then((id) => {
         return aUtil.getSimilarArticles(app, projectDomain, id, sourceLanguages)
             .then((ids) => {
-                const errorObject = new sUtil.HTTPError({ status: 404 });
+                const errorObject = new util.HTTPError({ status: 404 });
 
                 if (!ids.length) {
                     return BBPromise.reject(errorObject);
