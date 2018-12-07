@@ -134,6 +134,16 @@ services:
             prop: pageprops
             ppprop: wikibase_item
             titles: '{{params.title}}'
+        # Fetch article titles in given languages for a Wikidata item
+        article_title:
+          domain: 'www.wikidata.org'
+          parameters:
+            format: json
+            formatversion: 2
+            action: wbgetentities
+            ids: '{{params.id}}'
+            props: sitelinks
+            sitefilter: '{{params.sites}}'
       article:
         # key is the target language, values are source languages
         translation_models:
