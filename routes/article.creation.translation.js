@@ -2,7 +2,7 @@
 
 
 const sUtil = require('../lib/util');
-const tUtil = require('../lib/translation');
+const tUtil = require('../lib/article.creation.translation');
 
 
 /**
@@ -55,10 +55,10 @@ function recommend(req, res, source, target, projectDomain, seed) {
 }
 
 /**
- * GET /articles/{source}/{seed}
+ * GET /{source}/{seed}
  * Gets the articles existing in source but missing in domain based on seed.
  */
-router.get('/articles/:source/:seed?', (req, res) => {
+router.get('/:source/:seed?', (req, res) => {
     const domainParts = req.params.domain.split('.');
     const target = domainParts[0];
     const projectDomain = domainParts.splice(1).join('.');
@@ -71,7 +71,7 @@ module.exports = function(appObj) {
     app = appObj;
 
     return {
-        path: '/translation',
+        path: '/article/creation/translation',
         api_version: 1,
         router
     };

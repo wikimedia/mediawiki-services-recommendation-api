@@ -53,8 +53,8 @@ paths:
               fooo: true
           response:
             status: 404
-  # from routes/translation.js
-  /{domain}/v1/translation/articles/{source}{/seed}:
+  # from routes/article.creation.translation.js
+  /{domain}/v1/article/creation/translation/{source}{/seed}:
     get:
       tags:
         - Recommend

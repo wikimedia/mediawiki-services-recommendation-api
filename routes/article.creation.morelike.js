@@ -3,7 +3,7 @@
 const BBPromise = require("bluebird");
 const mysql = require('mysql');
 const util = require('../lib/util');
-const aUtil = require('../lib/article');
+const aUtil = require('../lib/article.creation.morelike');
 const sUtil = require('../lib/util');
 
 /**
@@ -17,7 +17,7 @@ const router = util.router();
 let app;
 
 /**
- * GET /article/morelike/translation/{seed}
+ * GET /{seed}
  * Gets missing articles (from the current wiki) similar to seed.
  *
  * Similar articles are retrieved using a CirrusSearch morelike query.
@@ -25,7 +25,7 @@ let app;
  * predictions.
  * @see https://github.com/wikimedia/research-translation-recommendation-predictions
  */
-router.get('/morelike/translation/:seed', (req, res) => {
+router.get('/:seed', (req, res) => {
     const domain = req.params.domain;
     const domainParts = domain.split('.');
     const language = domainParts[0];  // e.g. en
@@ -77,7 +77,7 @@ module.exports = function(appObj) {
     });
 
     return {
-        path: '/article',
+        path: '/article/creation/morelike',
         api_version: 1,
         router
     };
