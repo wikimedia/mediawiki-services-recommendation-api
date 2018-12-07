@@ -28,9 +28,11 @@ router.get('/:seed', (req, res) => {
     if (!sourceLanguages) {
         app.logger.log('error/article.creation.morelike',
             `Article translation model for "${language}" doesn't exist.`);
-        throw new util.HTTPError({
-            status: 400
+        const errorObject = new util.HTTPError({
+            status: 400,
+            message: "Aritcle recommendations for the domain don't exit."
         });
+        return BBPromise.reject(errorObject);
     }
 
     return aUtil.getWikidataId(app, domain, req.params.seed).then((id) => {

@@ -88,7 +88,7 @@ paths:
           required: false
           default: 24
       x-amples:
-        - title: normal source and target
+        - title: article.creation.translation — normal source and target
           request:
             params:
               source: en
@@ -97,7 +97,7 @@ paths:
             status: 200
             headers:
               content-type: application/json
-        - title: normal source and target with seed
+        - title: article.creation.translation — normal source and target with seed
           request:
             params:
               source: en
@@ -108,7 +108,7 @@ paths:
             headers:
               content-type: application/json
 #        # TODO: Find a solution for this case
-#        - title: bad source
+#        - title: article.creation.translation — bad source
 #          request:
 #            params:
 #              source: qqq
@@ -117,7 +117,7 @@ paths:
 #            status: 504
 #            headers:
 #              content-type: application/json
-        - title: bad seed
+        - title: article.creation.translation — bad seed
           request:
             params:
               source: en
@@ -127,7 +127,7 @@ paths:
             status: 404
             headers:
               content-type: application/json
-        - title: invalid count
+        - title: article.creation.translation — invalid count
           request:
             params:
               source: en
@@ -136,10 +136,57 @@ paths:
               count: -123
           response:
             status: 400
-        - title: incorrectly formatted source
+        - title: article.creation.translation — incorrectly formatted source
           request:
             params:
               source: en-
               domain: de.wikipedia.org
           response:
             status: 400
+  /{domain}/v1/article/creation/morelike/{seed}:
+    get:
+      tags:
+        - Recommendation
+      summary: Recommend missing articles
+      description: |
+        Recommends articles similar to the seed article but are missing
+        from the domain language Wikipedia.
+
+        Stability: [unstable](https://www.mediawiki.org/wiki/API_versioning#Unstable)
+      produces:
+        - application/json
+        - application/problem+json
+      parameters:
+        - name: seed
+          in: path
+          description: The article title used to search similar but missing articles
+          type: string
+          required: true
+      x-amples:
+        - title: article.creation.morelike — good article title
+          request:
+            params:
+              seed: Palov
+              domain: uz.wikipedia.org
+          response:
+            status: 200
+            headers:
+              content-type: application/json
+        - title: article.creation.morelike — bad article title
+          request:
+            params:
+              seed: Palov-missing
+              domain: uz.wikipedia.org
+          response:
+            status: 404
+            headers:
+              content-type: application/json
+        - title: article.creation.morelike — missing models
+          request:
+            params:
+              seed: Palov
+              domain: blah.wikipedia.org
+          response:
+            status: 400
+            headers:
+              content-type: application/json

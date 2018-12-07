@@ -54,7 +54,7 @@ router.get('/:source/:seed?', (req, res) => {
     const target = domainParts[0];
     const projectDomain = domainParts.splice(1).join('.');
     return recommend(req, res, req.params.source, target,
-                     projectDomain, req.params.seed);
+        projectDomain, req.params.seed);
 });
 
 
