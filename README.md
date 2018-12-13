@@ -46,43 +46,5 @@ rm -r node_modules
 npm install
 ```
 
-## Data
-### SQL
-    SQL files are at scripts/. Once you have a database, you can use the
-    *.sql files to create the needed tables.
-
-### Languages
-    List of Wikipedia languages are at
-    https://github.com/wikimedia/research-translation-recommendation-models/blob/master/wikipedia.langlist
-
-    This list can be used to populate the `language` table. Use the
-    following command to do so:
-    `python article-recommendation-data-importer.py --load=languages --tsv=wikipedia.langlist`
-
-
-### Wikidata items
-    List of Wikidata items that link to Wikipedia entries on the Main
-    namespace is at
-    https://github.com/wikimedia/research-translation-recommendation-predictions/blob/master/02012018-07312018/wikidata_items.tsv.tar.gz
-
-    This lis can be used to populate the `wikidata` table. Use the
-    following command to do so:
-    `python article-recommendation-data-importer.py --load=wikidata_items --tsv=wikidata_items.tsv`
-
-
-### Article recommendation scores
-    Recommendation scores for article creation are at
-    https://github.com/wikimedia/research-translation-recommendation-predictions/tree/master/02012018-07312018
-
-    You'll need to remove 'Q' from wikidata ID's first (This way we
-    don't have to create a separate table for Wikidata items):
-
-    `sed 's/Q//' predictions-02012018-07312018_ruwiki-uzwiki.tsv > ruwiki-uzwiki.tsv`
-
-    Once languages and wikidata items are in the database, you can load
-    the scores into the article_recommendation table like so:
-
-    `python article-recommendation-data-importer.py --load=scores --source='ru' --target='uz' --tsv=ruwiki-uzwiki.tsv`
-
 Enjoy!
 

@@ -43,13 +43,14 @@ router.get('/:seed', (req, res) => {
                 if (!ids.length) {
                     return BBPromise.reject(errorObject);
                 } else {
-                    return aUtil.getArticleScoresFromDb(app, ids, language)
-                        .then((results) => {
-                            res.json(results);
-                        })
-                        .catch((error) => {
-                            return BBPromise.reject(errorObject);
-                        });
+                    return aUtil.getArticleNormalizedRanksFromDb(
+                        app, ids, language
+                    ).then((results) => {
+                        res.json(results);
+                    })
+                    .catch((error) => {
+                        return BBPromise.reject(errorObject);
+                    });
                 }
             });
     });

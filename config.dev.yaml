@@ -84,7 +84,7 @@ services:
         pass:
       mysql_tables:
         language: language
-        article_recommendation: article_recommendation
+        normalized_rank: normalized_rank
       wdqsapi_req:
         method: 'post'
         uri: 'https://query.wikidata.org/sparql'
