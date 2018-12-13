@@ -137,11 +137,5 @@ services:
       article:
         # key is the target language, values are source languages
         translation_models:
-          es:
-            - en
-          fa:
-            - en
-          ru:
-            - en
           uz:
             - ru

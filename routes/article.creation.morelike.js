@@ -22,15 +22,23 @@ router.get('/:seed', (req, res) => {
     const language = domainParts[0];  // e.g. en
     const projectDomain = domainParts.splice(1).join('.');
 
-    const sourceLanguages = app.conf.article.translation_models[language] ||
-          null;
+    let sourceLanguages = [];
+    let availableModels = [];
 
-    if (!sourceLanguages) {
+    if (app.conf.article && app.conf.article.translation_models) {
+        sourceLanguages = app.conf.article.translation_models[language] || [];
+        availableModels = Object.keys(app.conf.article.translation_models);
+    }
+
+    if (!sourceLanguages.length) {
         app.logger.log('error/article.creation.morelike',
             `Article translation model for "${language}" doesn't exist.`);
+
         const errorObject = new util.HTTPError({
-            status: 400,
-            message: "Aritcle recommendations for the domain don't exit."
+            status: 501,
+            message: `'morelike' aritcle recommendations are not eanbled on ` +
+                `this Wikipedia. Currently enabled on: ` +
+                `${availableModels.join(', ') || 'none'}.`
         });
         return BBPromise.reject(errorObject);
     }
