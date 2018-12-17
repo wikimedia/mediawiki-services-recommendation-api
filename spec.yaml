@@ -187,6 +187,6 @@ paths:
               seed: Palov
               domain: blah.wikipedia.org
           response:
-            status: 400
+            status: 501
             headers:
               content-type: application/json
