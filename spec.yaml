@@ -88,7 +88,7 @@ paths:
           required: false
           default: 24
       x-amples:
-        - title: article.creation.translation — normal source and target
+        - title: article.creation.translation - normal source and target
           request:
             params:
               source: en
@@ -97,7 +97,7 @@ paths:
             status: 200
             headers:
               content-type: application/json
-        - title: article.creation.translation — normal source and target with seed
+        - title: article.creation.translation - normal source and target with seed
           request:
             params:
               source: en
@@ -108,7 +108,7 @@ paths:
             headers:
               content-type: application/json
 #        # TODO: Find a solution for this case
-#        - title: article.creation.translation — bad source
+#        - title: article.creation.translation - bad source
 #          request:
 #            params:
 #              source: qqq
@@ -117,7 +117,7 @@ paths:
 #            status: 504
 #            headers:
 #              content-type: application/json
-        - title: article.creation.translation — bad seed
+        - title: article.creation.translation - bad seed
           request:
             params:
               source: en
@@ -127,7 +127,7 @@ paths:
             status: 404
             headers:
               content-type: application/json
-        - title: article.creation.translation — invalid count
+        - title: article.creation.translation - invalid count
           request:
             params:
               source: en
@@ -136,7 +136,7 @@ paths:
               count: -123
           response:
             status: 400
-        - title: article.creation.translation — incorrectly formatted source
+        - title: article.creation.translation - incorrectly formatted source
           request:
             params:
               source: en-
@@ -163,7 +163,7 @@ paths:
           type: string
           required: true
       x-amples:
-        - title: article.creation.morelike — good article title
+        - title: article.creation.morelike - good article title
           request:
             params:
               seed: Palov
@@ -172,7 +172,7 @@ paths:
             status: 200
             headers:
               content-type: application/json
-        - title: article.creation.morelike — bad article title
+        - title: article.creation.morelike - bad article title
           request:
             params:
               seed: Palov-missing
@@ -181,7 +181,7 @@ paths:
             status: 404
             headers:
               content-type: application/json
-        - title: article.creation.morelike — missing models
+        - title: article.creation.morelike - missing models
           request:
             params:
               seed: Palov
