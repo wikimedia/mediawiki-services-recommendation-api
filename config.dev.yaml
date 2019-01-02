@@ -77,7 +77,7 @@ services:
         body: '{{request.body}}'
 
       mysql_conn:
-        limit: 30
+        limit: 2
         host: localhost:3306
         name: recommendationapi
         user: root
