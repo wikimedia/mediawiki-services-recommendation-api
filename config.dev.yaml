@@ -82,6 +82,10 @@ services:
         name: recommendationapi
         user: root
         pass:
+        # If a connection to MySQL fails, how many times to retry?
+        retry: 2
+        # retry delay (in ms) before connecting to MySQL
+        retry_delay: 1000
       mysql_tables:
         language: language
         normalized_rank: normalized_rank

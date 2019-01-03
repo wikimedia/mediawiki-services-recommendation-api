@@ -46,10 +46,11 @@ router.get('/:seed', (req, res) => {
     return aUtil.getWikidataId(app, domain, req.params.seed).then((id) => {
         return aUtil.getSimilarArticles(app, projectDomain, id, sourceLanguages)
             .then((ids) => {
-                const errorObject = new util.HTTPError({ status: 404 });
-
                 if (!ids.length) {
-                    return BBPromise.reject(errorObject);
+                    return BBPromise.reject(new util.HTTPError({
+                        status: 404,
+                        message: 'Cannot retrieve similar articles to seed.'
+                    }));
                 } else {
                     return aUtil.getArticleNormalizedRanksFromDb(
                         app, ids, language
@@ -57,7 +58,11 @@ router.get('/:seed', (req, res) => {
                         res.json(results);
                     })
                     .catch((error) => {
-                        return BBPromise.reject(errorObject);
+                        return BBPromise.reject(new util.HTTPError({
+                            status: 500,
+                            message: 'Cannot retrieve normalized ranks from' +
+                                ' the database.'
+                        }));
                     });
                 }
             });
