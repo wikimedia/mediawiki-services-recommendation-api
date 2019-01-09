@@ -12,7 +12,6 @@ const apiUtil = require('./lib/api-util');
 const packageInfo = require('./package.json');
 const yaml = require('js-yaml');
 const addShutdown = require('http-shutdown');
-const articleCreationTranslationUtils = require('./lib/article.creation.translation');
 const path = require('path');
 
 
@@ -69,8 +68,8 @@ function initApp(options) {
 
     // set up the request templates for the APIs
     apiUtil.setupApiTemplates(app);
-
-    articleCreationTranslationUtils.setupTemplates(app);
+    // set up query templates
+    apiUtil.setupQueryTemplates(app);
 
     // set up the spec
     if (!app.conf.spec) {

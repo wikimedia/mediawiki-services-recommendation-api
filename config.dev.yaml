@@ -75,7 +75,14 @@ services:
         query: '{{ default(request.query, {}) }}'
         headers: '{{request.headers}}'
         body: '{{request.body}}'
-
+      wdqsapi_req:
+        method: 'post'
+        uri: 'https://query.wikidata.org/sparql'
+        headers:
+          user-agent: '{{user-agent}}'
+        body:
+          format: 'json'
+          query: '{{request.query}}'
       mysql_conn:
         limit: 2
         host: localhost:3306
@@ -90,55 +97,6 @@ services:
         language: language
         normalized_rank: normalized_rank
       wikidata_domain: 'www.wikidata.org'
-      wdqsapi_req:
-        method: 'post'
-        uri: 'https://query.wikidata.org/sparql'
-        headers:
-          user-agent: '{{user-agent}}'
-        body:
-          format: 'json'
-          query: '{{request.query}}'
-      queries:
-        pageviews:
-          domain: '{{params.source}}.wikipedia.org'
-          parameters:
-            format: json
-            action: query
-            prop: pageprops
-            ppprop: wikibase_item
-            generator: mostviewed
-            gpvimlimit: 500
-        seed:
-          domain: '{{params.source}}.wikipedia.org'
-          parameters:
-            format: json
-            action: query
-            prop: pageprops
-            ppprop: wikibase_item
-            generator: search
-            gsrlimit: 500
-            gsrsearch: morelike:{{params.seed}}
-            gsrprop: ''
-        article:
-          domain: '{{params.source}}.wikipedia.org'
-          parameters:
-            format: json
-            action: query
-            prop: pageprops
-            ppprop: wikibase_item
-            generator: search
-            gsrlimit: 1
-            gsrsearch: '{{params.seed}}'
-            gsrprop: ''
-        wikidata:
-          domain: '{{params.domain}}'
-          parameters:
-            format: json
-            formatversion: 2
-            action: query
-            prop: pageprops
-            ppprop: wikibase_item
-            titles: '{{params.title}}'
       article:
         # key is the target language, values are source languages
         translation_models:
