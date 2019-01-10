@@ -164,6 +164,9 @@ paths:
           required: true
       x-amples:
         - title: article.creation.morelike - good article title
+          # Disabling for now because the test environment may not have
+          # access to MySQL. See feature tests for a replacement.
+          skip-locally: true
           request:
             params:
               seed: Palov

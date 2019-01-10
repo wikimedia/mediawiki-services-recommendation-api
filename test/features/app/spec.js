@@ -114,13 +114,21 @@ function constructTests(paths, defParams) {
             }
             p['x-amples'].forEach((ex) => {
                 ex.request = ex.request || {};
-                ret.push(constructTestCase(
-                    ex.title,
-                    uri.toString({ params: Object.assign({}, defParams, ex.request.params || {}) }),
-                    method,
-                    ex.request,
-                    ex.response || {}
-                ));
+                if (!ex['skip-locally']) {
+                    ret.push(constructTestCase(
+                        ex.title,
+                        uri.toString({
+                            params: Object.assign(
+                                {},
+                                defParams,
+                                ex.request.params || {}
+                            )
+                        }),
+                        method,
+                        ex.request,
+                        ex.response || {}
+                    ));
+                }
             });
         });
     });
