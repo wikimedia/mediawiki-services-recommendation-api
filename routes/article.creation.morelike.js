@@ -36,7 +36,7 @@ router.get('/:seed', (req, res) => {
 
         const errorObject = new util.HTTPError({
             status: 501,
-            message: `'morelike' aritcle recommendations are not eanbled on ` +
+            message: `'morelike' article recommendations are not enabled on ` +
                 `this Wikipedia. Currently enabled on: ` +
                 `${availableModels.join(', ') || 'none'}.`
         });
