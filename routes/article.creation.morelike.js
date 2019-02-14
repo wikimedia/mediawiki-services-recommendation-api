@@ -46,25 +46,27 @@ router.get('/:seed', (req, res) => {
     return aUtil.getWikidataId(app, domain, req.params.seed).then((id) => {
         return aUtil.getSimilarArticles(app, projectDomain, id, sourceLanguages)
             .then((ids) => {
-                if (!ids.length) {
-                    return BBPromise.reject(new util.HTTPError({
-                        status: 404,
-                        message: 'Cannot retrieve similar articles to seed.'
-                    }));
-                } else {
-                    return aUtil.getArticleNormalizedRanksFromDb(
-                        app, ids, language
-                    ).then((results) => {
-                        res.json(results);
-                    })
-                    .catch((error) => {
-                        return BBPromise.reject(new util.HTTPError({
-                            status: 500,
-                            message: 'Cannot retrieve normalized ranks from' +
-                                ' the database.'
-                        }));
+                return aUtil.getMissingArticles(app, projectDomain, ids, language)
+                    .then((ids) => {
+                        if (!ids.length) {
+                            return BBPromise.reject(new util.HTTPError({
+                                status: 404,
+                                message: 'Cannot retrieve similar articles to seed.'
+                            }));
+                        } else {
+                            return aUtil.getArticleNormalizedRanksFromDb(
+                                app, ids, language
+                            ).then((results) => {
+                                res.json(results);
+                            }).catch((error) => {
+                                return BBPromise.reject(new util.HTTPError({
+                                    status: 500,
+                                    message: 'Cannot retrieve normalized ranks from' +
+                                        ' the database.'
+                                }));
+                            });
+                        }
                     });
-                }
             });
     });
 });
