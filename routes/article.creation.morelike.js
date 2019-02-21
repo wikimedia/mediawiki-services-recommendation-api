@@ -44,14 +44,26 @@ router.get('/:seed', (req, res) => {
     }
 
     return aUtil.getWikidataId(app, domain, req.params.seed).then((id) => {
+        if (!id) {
+            return BBPromise.reject(new util.HTTPError({
+                status: 404,
+                message: 'No such article found.'
+            }));
+        }
         return aUtil.getSimilarArticles(app, projectDomain, id, sourceLanguages)
             .then((ids) => {
+                if (!ids.length) {
+                    return BBPromise.reject(new util.HTTPError({
+                        status: 404,
+                        message: 'No similar articles to seed found.'
+                    }));
+                }
                 return aUtil.getMissingArticles(app, projectDomain, ids, language)
                     .then((ids) => {
                         if (!ids.length) {
                             return BBPromise.reject(new util.HTTPError({
                                 status: 404,
-                                message: 'Cannot retrieve similar articles to seed.'
+                                message: 'All similar articles have been created.'
                             }));
                         } else {
                             return aUtil.getArticleNormalizedRanksFromDb(
