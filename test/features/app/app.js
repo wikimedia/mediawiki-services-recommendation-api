@@ -2,7 +2,6 @@
 
 'use strict';
 
-
 const preq   = require('preq');
 const assert = require('../../utils/assert.js');
 const server = require('../../utils/server.js');
@@ -12,7 +11,7 @@ if (!server.stopHookAdded) {
     after(() => server.stop());
 }
 
-describe('express app', function() {
+describe('express app', function () {
 
     this.timeout(20000); // eslint-disable-line no-invalid-this
 
@@ -87,4 +86,3 @@ describe('express app', function() {
         });
     });
 });
-

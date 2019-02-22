@@ -26,11 +26,10 @@ if (!server.stopHookAdded) {
 
 before(() => server.start());
 
-describe('article.creation.morelike', function() {
+describe('article.creation.morelike', function () {
     this.timeout(20000);
 
-
-    it('should return recommendations for good article title',() => {
+    it('should return recommendations for good article title', () => {
         return preq.get(
             `${server.config.uri}uz.wikipedia.org/v1/article/creation/morelike/Palov`
         ).then((res) => {

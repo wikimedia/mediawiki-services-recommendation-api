@@ -24,35 +24,35 @@ function stubApi() {
         body: {
             entities: {
                 Q22169: {
-                    type: "item",
-                    id: "Q22169",
+                    type: 'item',
+                    id: 'Q22169',
                     sitelinks: {}
                 },
                 Q7075: {
-                    type: "item",
-                    id: "Q7075",
+                    type: 'item',
+                    id: 'Q7075',
                     sitelinks: {
                         uzwiki: {
-                            site: "uzwiki",
-                            title: "Kutubxona",
+                            site: 'uzwiki',
+                            title: 'Kutubxona',
                             badges: []
                         }
                     }
                 },
                 Q102786: {
-                    type: "item",
-                    id: "Q102786",
+                    type: 'item',
+                    id: 'Q102786',
                     sitelinks: {
                         uzwiki: {
-                            site: "uzwiki",
-                            title: "Abbreviatura",
+                            site: 'uzwiki',
+                            title: 'Abbreviatura',
                             badges: []
                         }
                     }
                 },
                 Q33251: {
-                    type: "item",
-                    id: "Q33251",
+                    type: 'item',
+                    id: 'Q33251',
                     sitelinks: {}
                 }
             },
@@ -62,7 +62,6 @@ function stubApi() {
 }
 
 after(() => mwApiGetStub.restore());
-
 
 describe('Get missing articles', () => {
     it('correctly filters out existing articles', (done) => {

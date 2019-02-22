@@ -1,6 +1,6 @@
 'use strict';
 
-const BBPromise = require("bluebird");
+const BBPromise = require('bluebird');
 const mysql = require('mysql');
 const util = require('../lib/util');
 const aUtil = require('../lib/article.creation.morelike');
@@ -36,9 +36,9 @@ router.get('/:seed', (req, res) => {
 
         const errorObject = new util.HTTPError({
             status: 501,
-            message: `'morelike' article recommendations are not enabled on ` +
-                `this Wikipedia. Currently enabled on: ` +
-                `${availableModels.join(', ') || 'none'}.`
+            message: `'morelike' article recommendations are not enabled on
+                this Wikipedia. Currently enabled on:
+                ${availableModels.join(', ') || 'none'}.`
         });
         return BBPromise.reject(errorObject);
     }
@@ -83,7 +83,7 @@ router.get('/:seed', (req, res) => {
     });
 });
 
-module.exports = function(appObj) {
+module.exports = function (appObj) {
     app = appObj;
 
     const mysqlConf = app.conf.mysql_conn;

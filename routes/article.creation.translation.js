@@ -57,8 +57,7 @@ router.get('/:source/:seed?', (req, res) => {
         projectDomain, req.params.seed);
 });
 
-
-module.exports = function(appObj) {
+module.exports = function (appObj) {
 
     app = appObj;
 
@@ -69,4 +68,3 @@ module.exports = function(appObj) {
     };
 
 };
-

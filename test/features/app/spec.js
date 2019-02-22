@@ -2,7 +2,6 @@
 
 'use strict';
 
-
 const preq   = require('preq');
 const assert = require('../../utils/assert.js');
 const server = require('../../utils/server.js');
@@ -31,7 +30,6 @@ function staticSpecLoad() {
     return spec;
 
 }
-
 
 function validateExamples(pathStr, defParams, mSpec) {
 
@@ -68,7 +66,6 @@ function validateExamples(pathStr, defParams, mSpec) {
 
 }
 
-
 function constructTestCase(title, path, method, request, response) {
 
     return {
@@ -89,7 +86,6 @@ function constructTestCase(title, path, method, request, response) {
     };
 
 }
-
 
 function constructTests(paths, defParams) {
 
@@ -136,7 +132,6 @@ function constructTests(paths, defParams) {
     return ret;
 
 }
-
 
 function cmp(result, expected, errMsg) {
 
@@ -194,7 +189,6 @@ function cmp(result, expected, errMsg) {
 
 }
 
-
 function validateTestResponse(testCase, res) {
 
     const expRes = testCase.response;
@@ -213,7 +207,9 @@ function validateTestResponse(testCase, res) {
         return true;
     }
     res.body = res.body || '';
-    if (Buffer.isBuffer(res.body)) { res.body = res.body.toString(); }
+    if (Buffer.isBuffer(res.body)) {
+        res.body = res.body.toString();
+    }
     if (expRes.body.constructor !== res.body.constructor) {
         if (expRes.body.constructor === String) {
             res.body = JSON.stringify(res.body);
@@ -235,8 +231,7 @@ function validateTestResponse(testCase, res) {
 
 }
 
-
-describe('Swagger spec', function() {
+describe('Swagger spec', function () {
 
     // the variable holding the spec
     let spec = staticSpecLoad();
@@ -299,4 +294,3 @@ describe('Swagger spec', function() {
 
     });
 });
-
