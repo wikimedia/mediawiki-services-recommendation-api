@@ -81,6 +81,7 @@ function fails(promise, onRejected) {
 
 module.exports.ok             = assert.ok;
 module.exports.doesNotThrow   = assert.doesNotThrow;
+module.exports.fail           = assert.fail;
 module.exports.fails          = fails;
 module.exports.deepEqual      = deepEqual;
 module.exports.isDeepEqual    = isDeepEqual;

@@ -1,11 +1,13 @@
 'use strict';
 
 const lib = require('../lib/description');
+const common = require('../lib/suggested-edits-common');
 const router = require('../lib/util').router();
 
 let app;
 
 router.get('/from/:source/to/:target', (req, res) => {
+    common.checkRequestDomains(app.conf.description_allowed_domains, req.params.domain);
     return lib.buildResponse(app, req, lib.Tasks.DESCRIPTION_TRANSLATION,
         lib.isValidItemForTranslation).then(response => res.status(200).send(response));
 });
