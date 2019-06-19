@@ -263,3 +263,79 @@ paths:
                   mime: /image.*/
                   structured:
                     captions: /.+/
+
+  /{domain}/v1/description/addition/{target}:
+    get:
+      tags:
+        - Recommendation
+      summary: Recommend Wikibase items missing a description in the target language
+      produces:
+        - application/json
+        - application/problem+json
+      parameters:
+        - name: target
+          in: path
+          description: The target wiki language code for suggestions
+          type: string
+          required: true
+      x-amples:
+        - title: Description addition suggestions
+          request:
+            params:
+              domain: www.wikidata.org
+              target: zh
+            response:
+              status: 200
+              headers:
+                content-type: application/json
+              body:
+                - pageid: /.+/
+                  ns: 0
+                  title: /.+/
+                  wikibase_item:
+                    type: item
+                    id: /.+/
+                    labels: /.+/
+                    descriptions: /.+/
+                    sitelinks: /.+/
+
+  /{domain}/v1/description/translation/from/{source}/to/{target}:
+    get:
+      tags:
+        - Recommendation
+      summary: Recommend Wikibase items with a description in the source language but missing one in the target language
+      produces:
+        - application/json
+        - application/problem+json
+      parameters:
+        - name: source
+          in: path
+          description: The source wiki language code for suggestions
+          type: string
+          required: true
+        - name: target
+          in: path
+          description: The target wiki language code for suggestions
+          type: string
+          required: true
+      x-amples:
+        - title: Description translation suggestions
+          request:
+            params:
+              domain: www.wikidata.org
+              source: en
+              target: zh
+            response:
+              status: 200
+              headers:
+                content-type: application/json
+              body:
+                - pageid: /.+/
+                  ns: 0
+                  title: /.+/
+                  wikibase_item:
+                    type: item
+                    id: /.+/
+                    labels: /.+/
+                    descriptions: /.+/
+                    sitelinks: /.+/
