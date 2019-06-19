@@ -193,3 +193,73 @@ paths:
             status: 501
             headers:
               content-type: application/json
+
+  /{domain}/v1/caption/addition/{target}:
+    get:
+      tags:
+        - Recommendation
+      summary: Recommend files missing a caption (label) in the target language
+      produces:
+        - application/json
+        - application/problem+json
+      parameters:
+        - name: target
+          in: path
+          description: The target wiki language code for suggestions
+          type: string
+          required: true
+      x-amples:
+        - title: Caption addition suggestions
+          request:
+            params:
+              domain: commons.wikimedia.org
+              target: zh
+            response:
+              status: 200
+              headers:
+                content-type: application/json
+              body:
+                - pageid: /.+/
+                  ns: 6
+                  title: /.+/
+                  mime: /image.*/
+                  structured:
+                    captions: /.+/
+
+  /{domain}/v1/caption/translation/from/{source}/to/{target}:
+    get:
+      tags:
+        - Recommendation
+      summary: Recommend files with a caption (label) in the source language but missing one in the target language
+      produces:
+        - application/json
+        - application/problem+json
+      parameters:
+        - name: source
+          in: path
+          description: The source wiki language code for suggestions
+          type: string
+          required: true
+        - name: target
+          in: path
+          description: The target wiki language code for suggestions
+          type: string
+          required: true
+      x-amples:
+        - title: Caption translation suggestions
+          request:
+            params:
+              domain: commons.wikimedia.org
+              source: en
+              target: zh
+            response:
+              status: 200
+              headers:
+                content-type: application/json
+              body:
+                - pageid: /.+/
+                  ns: 6
+                  title: /.+/
+                  mime: /image.*/
+                  structured:
+                    captions: /.+/

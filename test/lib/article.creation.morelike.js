@@ -61,8 +61,6 @@ function stubApi() {
     });
 }
 
-after(() => mwApiGetStub.restore());
-
 describe('Get missing articles', () => {
     it('correctly filters out existing articles', (done) => {
         // call this here, otherwise it affects tests in other files
@@ -75,4 +73,6 @@ describe('Get missing articles', () => {
             done();
         });
     });
+
+    after(() => mwApiGetStub.restore());
 });
