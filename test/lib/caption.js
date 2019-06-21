@@ -6,6 +6,27 @@ const assert = require('../utils/assert');
 
 describe('lib:caption', () => {
 
+    describe('convertGlobalUsagePageIdsToInts', () => {
+        const convertGlobalUsagePageIdsToInts = lib.__get__('convertGlobalUsagePageIdsToInts');
+
+        it('converts page ID string to int', () => {
+            const image = {
+                pageid: 1,
+                ns: 6,
+                title: 'File:Foo.jpg',
+                mime: 'image/jpeg',
+                structured: { captions: {} },
+                globalusage: [{
+                    title: 'Foo',
+                    wiki: 'en.wikipedia.org',
+                    pageid: '5'
+                }]
+            };
+            convertGlobalUsagePageIdsToInts(image);
+            assert.deepEqual(image.globalusage[0].pageid, 5);
+        });
+    });
+
     describe('consolidateImageData', () => {
         const consolidateImageData = lib.__get__('consolidateImageData');
 
