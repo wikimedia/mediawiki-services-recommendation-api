@@ -16,6 +16,8 @@ const app = {
     }
 };
 
+const req = { params: { domain: 'test.wikipedia.org' } };
+
 describe('lib:suggested-edits-common', () => {
 
     before(() => api.setupApiTemplates(app));
@@ -56,19 +58,19 @@ describe('lib:suggested-edits-common', () => {
     describe('getWikiLangForLangCode', () => {
 
         it('translates language variants to base wiki language codes', () => {
-            return lib.getWikiLangForLangCode(app, 'zh-hans').then((res) => {
+            return lib.getWikiLangForLangCode(app, req, 'zh-hans').then((res) => {
                 assert.deepEqual(res, 'zh');
             });
         });
 
         it('passed through other inputs', () => {
-            return lib.getWikiLangForLangCode(app, 'foo').then((res) => {
+            return lib.getWikiLangForLangCode(app, req, 'foo').then((res) => {
                 assert.deepEqual(res, 'foo');
             });
         });
 
         it('handles undefined', () => {
-            return lib.getWikiLangForLangCode(app, undefined).then((res) => {
+            return lib.getWikiLangForLangCode(app, req, undefined).then((res) => {
                 assert.deepEqual(res, undefined);
             });
         });
