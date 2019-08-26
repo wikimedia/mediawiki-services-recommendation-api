@@ -88,26 +88,25 @@ paths:
           required: false
           default: 24
       x-amples:
-        # TODO: enable these tests when T216750 is resolved.
-        # - title: article.creation.translation - normal source and target
-        #   request:
-        #     params:
-        #       source: en
-        #       domain: de.wikipedia.org
-        #   response:
-        #     status: 200
-        #     headers:
-        #       content-type: application/json
-        # - title: article.creation.translation - normal source and target with seed
-        #   request:
-        #     params:
-        #       source: en
-        #       domain: de.wikipedia.org
-        #       seed: Apple
-        #   response:
-        #     status: 200
-        #     headers:
-        #       content-type: application/json
+        - title: article.creation.translation - normal source and target
+          request:
+            params:
+              source: en
+              domain: de.wikipedia.org
+          response:
+            status: 200
+            headers:
+              content-type: application/json
+        - title: article.creation.translation - normal source and target with seed
+          request:
+            params:
+              source: en
+              domain: de.wikipedia.org
+              seed: Apple
+          response:
+            status: 200
+            headers:
+              content-type: application/json
 #        # TODO: Find a solution for this case
 #        - title: article.creation.translation - bad source
 #          request:
