@@ -49,22 +49,26 @@ describe('lib:caption', () => {
 
     });
 
-    describe('filterNonImageFiles', () => {
-        const filterNonImageFiles = lib.__get__('filterNonImageFiles');
+    describe('filterPages', () => {
+        const filterPages = lib.__get__('filterPages');
 
         it('filters non-image MIME types', () => {
             const pages = {
                 1: { imageinfo: [ { mime: 'audio/ogg' } ] },
                 2: { imageinfo: [ { mime: 'image/jpeg' } ] },
-                3: { imageinfo: [ { mime: 'text/html' } ] }
+                3: { imageinfo: [ { mime: 'text/html' } ] },
+                4: {
+                    imageinfo: [ { mime: 'image/jpeg' } ],
+                    protection: [ { type: 'edit', level: 'sysop' } ]
+                }
             };
-            const result = filterNonImageFiles(pages);
+            const result = filterPages(pages);
             assert.deepEqual(Object.keys(result).length, 1);
             assert.ok(result['2']);
         });
 
         it('handles undefined pages object', () => {
-            assert.doesNotThrow(filterNonImageFiles, undefined);
+            assert.doesNotThrow(filterPages, undefined);
         });
 
     });
