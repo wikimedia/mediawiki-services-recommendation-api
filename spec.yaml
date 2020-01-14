@@ -91,7 +91,7 @@ paths:
         - title: article.creation.translation - normal source and target
           request:
             params:
-              source: en
+              source: it
               domain: de.wikipedia.org
           response:
             status: 200
