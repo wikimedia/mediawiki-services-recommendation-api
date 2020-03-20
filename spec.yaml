@@ -88,15 +88,16 @@ paths:
           required: false
           default: 24
       x-amples:
-        - title: article.creation.translation - normal source and target
-          request:
-            params:
-              source: it
-              domain: de.wikipedia.org
-          response:
-            status: 200
-            headers:
-              content-type: application/json
+#        # TODO: Find a stable source of pageview data (T233381)
+#        - title: article.creation.translation - normal source and target
+#          request:
+#            params:
+#              source: it
+#              domain: de.wikipedia.org
+#          response:
+#            status: 200
+#            headers:
+#              content-type: application/json
         - title: article.creation.translation - normal source and target with seed
           request:
             params:
