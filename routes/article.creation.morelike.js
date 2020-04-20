@@ -60,7 +60,12 @@ router.get('/:seed', (req, res) => {
                 }
                 return aUtil.getMissingArticles(app, projectDomain, ids, language)
                     .then((ids) => {
-                        if (!ids.length) {
+                        if (ids === null) {
+                            return BBPromise.reject(new util.HTTPError({
+                                status: 503,
+                                message: 'The MediaWiki API failed. Please try again later.'
+                            }));
+                        } else if (!ids.length) {
                             return BBPromise.reject(new util.HTTPError({
                                 status: 404,
                                 message: 'All similar articles have been created.'
