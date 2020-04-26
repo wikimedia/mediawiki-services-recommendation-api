@@ -8,6 +8,13 @@ const aUtil = require('../lib/article.creation.morelike');
 const router = util.router();
 let app;
 
+function mwApiFailure() {
+    return BBPromise.reject(new util.HTTPError({
+        status: 503,
+        message: 'The MediaWiki API failed. Please try again later.'
+    }));
+}
+
 /**
  * GET /{seed}
  * Gets missing articles (from the current wiki) similar to seed.
@@ -43,49 +50,50 @@ router.get('/:seed', (req, res) => {
         return BBPromise.reject(errorObject);
     }
 
-    return aUtil.getWikidataId(app, domain, req.params.seed).then((id) => {
-        if (!id) {
-            return BBPromise.reject(new util.HTTPError({
-                status: 404,
-                message: 'No such article found.'
-            }));
-        }
-        return aUtil.getSimilarArticles(app, projectDomain, id, sourceLanguages)
-            .then((ids) => {
-                if (!ids.length) {
-                    return BBPromise.reject(new util.HTTPError({
-                        status: 404,
-                        message: 'No similar articles to seed found.'
-                    }));
-                }
-                return aUtil.getMissingArticles(app, projectDomain, ids, language)
-                    .then((ids) => {
-                        if (ids === null) {
-                            return BBPromise.reject(new util.HTTPError({
-                                status: 503,
-                                message: 'The MediaWiki API failed. Please try again later.'
-                            }));
-                        } else if (!ids.length) {
-                            return BBPromise.reject(new util.HTTPError({
-                                status: 404,
-                                message: 'All similar articles have been created.'
-                            }));
-                        } else {
-                            return aUtil.getArticleNormalizedRanksFromDb(
-                                app, ids, language
-                            ).then((results) => {
-                                res.json(results);
-                            }).catch((error) => {
+    return aUtil.getWikidataId(app, domain, req.params.seed)
+        .catch(mwApiFailure)
+        .then((id) => {
+            if (!id) {
+                return BBPromise.reject(new util.HTTPError({
+                    status: 404,
+                    message: 'No such article found.'
+                }));
+            }
+            return aUtil.getSimilarArticles(app, projectDomain, id, sourceLanguages)
+                .catch(mwApiFailure)
+                .then((ids) => {
+                    if (!ids.length) {
+                        return BBPromise.reject(new util.HTTPError({
+                            status: 404,
+                            message: 'No similar articles to seed found.'
+                        }));
+                    }
+                    return aUtil.getMissingArticles(app, projectDomain, ids, language)
+                        .catch(mwApiFailure)
+                        .then((ids) => {
+                            if (ids === null) {
+                                return  mwApiFailure();
+                            } else if (!ids.length) {
                                 return BBPromise.reject(new util.HTTPError({
-                                    status: 500,
-                                    message: 'Cannot retrieve normalized ranks from' +
-                                        ' the database.'
+                                    status: 404,
+                                    message: 'All similar articles have been created.'
                                 }));
-                            });
-                        }
-                    });
-            });
-    });
+                            } else {
+                                return aUtil.getArticleNormalizedRanksFromDb(
+                                    app, ids, language
+                                ).then((results) => {
+                                    res.json(results);
+                                }).catch((error) => {
+                                    return BBPromise.reject(new util.HTTPError({
+                                        status: 503,
+                                        message: 'Cannot retrieve normalized ranks from' +
+                                            ' the database. Please try again later.'
+                                    }));
+                                });
+                            }
+                        });
+                });
+        });
 });
 
 module.exports = function (appObj) {
