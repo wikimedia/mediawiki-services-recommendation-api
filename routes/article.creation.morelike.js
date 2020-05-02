@@ -11,6 +11,7 @@ let app;
 function mwApiFailure() {
     return BBPromise.reject(new util.HTTPError({
         status: 503,
+        healthCheckStatus: 404,  // extra flag to reduce false alarms
         message: 'The MediaWiki API failed. Please try again later.'
     }));
 }
