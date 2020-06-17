@@ -299,22 +299,6 @@ paths:
                     labels: /.+/
                     descriptions: /.+/
                     sitelinks: /.+/
-        - title: Caption addition suggestions beta cluster
-          request:
-            params:
-              domain: wikidata.beta.wmflabs.org
-              target: en
-            response:
-              status: 200
-              headers:
-                content-type: application/json
-              body:
-                - pageid: /.+/
-                  ns: 6
-                  title: /.+/
-                  mime: /image.*/
-                  structured:
-                    captions: /.+/
 
   /{domain}/v1/description/translation/from/{source}/to/{target}:
     get:
