@@ -8,8 +8,8 @@ let app;
 
 router.get('/from/:source/to/:target', (req, res) => {
     common.checkRequestDomains(app.conf.caption_allowed_domains, req.params.domain);
-    return lib.buildResponse(app, req, lib.Tasks.CAPTION_TRANSLATION,
-        lib.isValidImageForTranslation).then(response => res.status(200).send(response));
+    return lib.buildResponse(app, req, lib.isValidImageForTranslation)
+        .then(response => res.status(200).send(response));
 });
 
 module.exports = function (appObj) {

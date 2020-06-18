@@ -22,4 +22,17 @@ describe('lib:description', () => {
         });
     });
 
+    describe('buildResponse', () => {
+        const buildResponse = lib.__get__('buildResponse');
+
+        it('gracefully handles undefined inputs', () => {
+            assert.deepEqual(buildResponse(), []);
+        });
+
+        it('gracefully handles empty inputs', () => {
+            const isValid = () => true;
+            assert.deepEqual(buildResponse([], {}, [], isValid, 'test', 'test', 'test', 'test'), []);
+        });
+    });
+
 });
