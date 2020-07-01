@@ -9,7 +9,7 @@ const router = util.router();
 let app;
 
 function mwApiFailure(e) {
-    app.logger.log('error/article.creation.morelike', {e});
+    app.logger.log('error/article.creation.morelike', { e });
     return BBPromise.reject(new util.HTTPError({
         status: 503,
         healthCheckStatus: 404,  // extra flag to reduce false alarms
