@@ -27,3 +27,4 @@ variants:
     copies: [prep]
     node: { env: production }
     entrypoint: [node, server.js]
+    apt: { packages: [ca-certificates] }
