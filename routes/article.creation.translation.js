@@ -8,6 +8,7 @@ let app;
 
 /**
  * Regular expression used for validating the source parameter
+ *
  * @type {RegExp}
  */
 const sourceValidator = /^[a-zA-Z]+(-[a-zA-Z]+)*$/;
