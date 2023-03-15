@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 'use strict';
 
 const bunyan = require('bunyan');
@@ -53,7 +51,7 @@ function logStream(logStdout) {
         }
 
         /* Disable eslint object-shorthand until Node 4 support is dropped */
-        /* eslint-disable object-shorthand */
+
         return {
             halt: halt,
             get: get

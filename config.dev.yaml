@@ -11,8 +11,8 @@ worker_heap_limit_mb: 250
 logging:
   level: trace
   streams:
-  - type: stdout # log to stdout
-    named_levels: true # emit log level name instead of index. e.g. INFO vs 30
+    - type: stdout # log to stdout
+      named_levels: true # emit log level name instead of index. e.g. INFO vs 30
 #  # Use gelf-stream -> logstash
 #  - type: gelf
 #    host: logstash1003.eqiad.wmnet
@@ -20,9 +20,9 @@ logging:
 
 # Statsd metrics reporter
 metrics:
-  #type: log
-  #host: localhost
-  #port: 8125
+# type: log
+# host: localhost
+# port: 8125
 
 services:
   - name: recommendation-api
@@ -38,7 +38,7 @@ services:
       # the location of the spec, defaults to spec.yaml if not specified
       # spec: ./spec.template.yaml
       # allow cross-domain requests to the API (default '*')
-      cors: '*'
+      cors: "*"
       # to disable use:
       # cors: false
       # to restrict to a particular domain, use:
@@ -68,23 +68,23 @@ services:
         method: post
         uri: https://{{domain}}/w/api.php
         headers:
-          user-agent: '{{user-agent}}'
-        body: '{{ default(request.query, {}) }}'
+          user-agent: "{{user-agent}}"
+        body: "{{ default(request.query, {}) }}"
       # the template used for contacting RESTBase
       restbase_req:
-        method: '{{request.method}}'
+        method: "{{request.method}}"
         uri: https://{{domain}}/api/rest_v1/{+path}
-        query: '{{ default(request.query, {}) }}'
-        headers: '{{request.headers}}'
-        body: '{{request.body}}'
+        query: "{{ default(request.query, {}) }}"
+        headers: "{{request.headers}}"
+        body: "{{request.body}}"
       wdqsapi_req:
-        method: 'post'
-        uri: 'https://query.wikidata.org/sparql'
+        method: post
+        uri: "https://query.wikidata.org/sparql"
         headers:
-          user-agent: '{{user-agent}}'
+          user-agent: "{{user-agent}}"
         body:
-          format: 'json'
-          query: '{{request.query}}'
+          format: json
+          query: "{{request.query}}"
       mysql_conn:
         limit: 2
         host: localhost:3306
@@ -98,7 +98,7 @@ services:
       mysql_tables:
         language: language
         normalized_rank: normalized_rank
-      wikidata_domain: 'www.wikidata.org'
+      wikidata_domain: www.wikidata.org
       article:
         # key is the target language, values are source languages
         translation_models:

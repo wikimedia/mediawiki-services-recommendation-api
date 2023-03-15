@@ -29,6 +29,8 @@
 		"arrow-parens": "off",
 		"no-multi-spaces": "off",
 		"no-redeclare": "warn",
-		"no-shadow": "warn"
+		"no-shadow": "warn",
+		"es-x/no-hashbang": "warn",
+		"yml/no-empty-mapping-value": "warn"
 	}
 }

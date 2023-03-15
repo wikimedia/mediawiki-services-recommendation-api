@@ -1,4 +1,4 @@
-swagger: '2.0'
+swagger: "2.0"
 info:
   termsOfService: https://wikimediafoundation.org/wiki/Terms_of_Use
   contact:
@@ -21,8 +21,8 @@ paths:
           response:
             status: 200
             headers:
-              user-agent: '*'
-              disallow: '/'
+              user-agent: "*"
+              disallow: /
   /:
     get:
       tags:
@@ -88,16 +88,16 @@ paths:
           required: false
           default: 24
       x-amples:
-#        # TODO: Find a stable source of pageview data (T233381)
-#        - title: article.creation.translation - normal source and target
-#          request:
-#            params:
-#              source: it
-#              domain: de.wikipedia.org
-#          response:
-#            status: 200
-#            headers:
-#              content-type: application/json
+        #        # TODO: Find a stable source of pageview data (T233381)
+        #        - title: article.creation.translation - normal source and target
+        #          request:
+        #            params:
+        #              source: it
+        #              domain: de.wikipedia.org
+        #          response:
+        #            status: 200
+        #            headers:
+        #              content-type: application/json
         - title: article.creation.translation - normal source and target with seed
           request:
             params:
@@ -108,16 +108,16 @@ paths:
             status: 200
             headers:
               content-type: application/json
-#        # TODO: Find a solution for this case
-#        - title: article.creation.translation - bad source
-#          request:
-#            params:
-#              source: qqq
-#              domain: de.wikipedia.org
-#          response:
-#            status: 504
-#            headers:
-#              content-type: application/json
+        #        # TODO: Find a solution for this case
+        #        - title: article.creation.translation - bad source
+        #          request:
+        #            params:
+        #              source: qqq
+        #              domain: de.wikipedia.org
+        #          response:
+        #            status: 504
+        #            headers:
+        #              content-type: application/json
         - title: article.creation.translation - bad seed
           request:
             params:
