@@ -42,7 +42,7 @@
 		"lodash": "^4.17.11",
 		"mysql": "^2.16.0",
 		"preq": "^0.5.6",
-		"service-runner": "^2.8.0",
+		"service-runner": "^3.1.0",
 		"swagger-router": "^0.7.2",
 		"swagger-ui": "git+https://github.com/wikimedia/swagger-ui#master"
 	},
