@@ -41,13 +41,13 @@ router.get('/:seed', (req, res) => {
 
     if (!sourceLanguages.length) {
         app.logger.log('error/article.creation.morelike',
-            `Article translation model for "${language}" doesn't exist.`);
+            `Article translation model for "${ language }" doesn't exist.`);
 
         const errorObject = new util.HTTPError({
             status: 501,
             message: `'morelike' article recommendations are not enabled on
                 this Wikipedia. Currently enabled on:
-                ${availableModels.join(', ') || 'none'}.`
+                ${ availableModels.join(', ') || 'none' }.`
         });
         return BBPromise.reject(errorObject);
     }

@@ -19,7 +19,7 @@ describe('express app', function () {
 
     it('should get robots.txt', () => {
         return preq.get({
-            uri: `${server.config.uri}robots.txt`
+            uri: `${ server.config.uri }robots.txt`
         }).then((res) => {
             assert.deepEqual(res.status, 200);
             assert.deepEqual(res.headers.disallow, '/');
@@ -31,7 +31,7 @@ describe('express app', function () {
             return true;
         }
         return preq.get({
-            uri: `${server.config.uri}robots.txt`
+            uri: `${ server.config.uri }robots.txt`
         }).then((res) => {
             assert.deepEqual(res.status, 200);
             assert.deepEqual(res.headers['access-control-allow-origin'], '*');
@@ -45,7 +45,7 @@ describe('express app', function () {
             return true;
         }
         return preq.get({
-            uri: `${server.config.uri}robots.txt`
+            uri: `${ server.config.uri }robots.txt`
         }).then((res) => {
             assert.deepEqual(res.status, 200);
             assert.deepEqual(res.headers['x-xss-protection'], '1; mode=block');
@@ -55,13 +55,13 @@ describe('express app', function () {
             assert.deepEqual(res.headers['content-security-policy'], 'default-src \'self\'; object-src \'none\'; media-src *; img-src *; style-src *; frame-ancestors \'self\'');
             assert.deepEqual(res.headers['x-content-security-policy'], 'default-src \'self\'; object-src \'none\'; media-src *; img-src *; style-src *; frame-ancestors \'self\'');
             assert.deepEqual(res.headers['x-webkit-csp'], 'default-src \'self\'; object-src \'none\'; media-src *; img-src *; style-src *; frame-ancestors \'self\'');
-            /* eslint-enable max-len */
+
         });
     });
 
     it('should get static content gzipped', () => {
         return preq.get({
-            uri: `${server.config.uri}static/index.html`,
+            uri: `${ server.config.uri }static/index.html`,
             headers: {
                 'accept-encoding': 'gzip, deflate'
             }
@@ -75,7 +75,7 @@ describe('express app', function () {
 
     it('should get static content uncompressed', () => {
         return preq.get({
-            uri: `${server.config.uri}static/index.html`,
+            uri: `${ server.config.uri }static/index.html`,
             headers: {
                 'accept-encoding': ''
             }

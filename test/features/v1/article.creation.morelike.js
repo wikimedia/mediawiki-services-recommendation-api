@@ -31,7 +31,7 @@ describe('article.creation.morelike', function () {
 
     it('should return recommendations for good article title', () => {
         return preq.get(
-            `${server.config.uri}uz.wikipedia.org/v1/article/creation/morelike/Palov`
+            `${ server.config.uri }uz.wikipedia.org/v1/article/creation/morelike/Palov`
         ).then((res) => {
             assert.status(res, 200);
             assert.contentType(res, 'application/json');
